@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <!-- <div id="holder">
+      <h1>将你的文件拖动到此处！</h1>
+    </div>
+
+    <div id="readList">
+      <h1>读取的文件内容</h1>
+    </div> -->
+    <div>
+      <button id="btn">点击弹出新窗口</button>
+    </div>
+    
+    <script>
+      let {ipcRenderer} = require('electron')
+
+
+      ipcRenderer.on('lc-active',(event,arg)=>{
+        console.log(event);
+        console.log(arg);
+      })
+
+      //  主动发送消息给主进程
+      
+      ipcRenderer.on('lv-reply',(event,arg)=>{
+        console.log(event);
+        console.log(arg);
+      })
+      var btn = document.querySelector('#btn')
+      btn.onclick = function(){
+        ipcRenderer.send('openNewWdindow',"1231231231231")
+      }
+    </script>
+      
+    <!-- You can also require other files to run in this process -->
+    <!-- <script src="js/renderer.js"></script> -->
+  </body>
+</html>
