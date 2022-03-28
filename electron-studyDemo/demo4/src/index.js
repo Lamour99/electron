@@ -1,5 +1,18 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, net} = require('electron');
 const path = require('path');
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -19,6 +32,17 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  
+let request = net.request('http://www.taobao.com')
+request.on('response',(response)=>{
+  console.log(response.statusCode)
+  console.log(JSON.stringify(response.headers))
+  response.on('data',(chunk)=>{
+    console.log(chunk.toString());
+  })
+})
+request.end()
 };
 
 // This method will be called when Electron has finished
